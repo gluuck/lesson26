@@ -27,10 +27,10 @@
 <div class="form-group">
   <label>Ваш парикмахер: </label>
   <select name="barber" class="form-control" >
-    <option>Jessie Pinkman</option>
-    <option>Gus Fring</option>
-    <option>Zverev</option>
-  </select>
+    <option <%= @barber == 'Jessie Pinkman' ? 'selected' : '' %>>Jessie Pinkman</option>
+    <option <%= @barber == 'Gus Fring' ? 'selected' : '' %>>Gus Fring</option>
+    <option <%= @barber == 'Zverev' ? 'selected' : '' %> >Zverev</option>
+      </select>
 </div>
 <div class="form-group">
   <label >В какой цвет красить: </label>
