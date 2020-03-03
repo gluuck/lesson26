@@ -1,6 +1,18 @@
-	<%= @results %>
-<table class="table">
-
+	
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>№</th>
+			<th>Имя</th>
+			<th>Телефон</th>
+			<th>Дата</th>
+			<th>Мастер</th>
+			<th>Цвет</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+	
 	<% @results.each do |row| %>
 		<tr>
 			<td><%= row ['id'] %></td>
@@ -11,5 +23,5 @@
 			<td><%= row ['color'] %></td>
 		</tr>
 	 <% end %>
-	
+	</tbody>
 </table>
