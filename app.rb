@@ -1,10 +1,11 @@
+# Language: Ruby, Level: Level 3
 #encoding: utf-8
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require "sqlite3"
 configure do
-	db = SQLite3::Database.new 'barbershop.db'
+	db = get_db
 	db.execute 'CREATE TABLE if not exists "Users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "name" text, "phone" text ,"datestamp" text,"barber" text,"color" text);'
 end
 
@@ -32,15 +33,15 @@ post '/visit'do
 	if @error !=''
 			return erb :visit
 	end
-	# db = SQLite3::Database.new 'users.sqlite'
-	#
-	# db.execute "insert into Users (Name,Phone,DateStamp,Barber,Color) values ("#{@name}" , "#{@phone}","#{@datetime}","#{@barber}","#{@color}");"
 
-	erb "Nane: #{@name}, phone number: #{@phone}, your date and time #{@datetime}, your master: #{@barber} color: #{@color}"
+		db=get_db
+	  db.execute ('insert into Users (name,phone,datestamp,barber,color) values (?,?,?,?,?)'),
+	  [@name , @phone,@datetime,@barber,@color]
+
+
+		erb "Name: #{@name}, phone number: #{@phone}, your date and time #{@datetime}, your master: #{@barber} color: #{@color}"
+
 end
-post '/contacts'do
-	@email = params[:email]
-	c = File.open './public/contacts.txt','a'
-	c.write "#{@email},"
-	c.close
+def get_db
+	return  SQLite3::Database.new 'barbershop.db'
 end
