@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script type="text/javascript">
+    $(function () {
+        $('#color').simplecolorpicker();
+        $('#datetimepicker').datetimepicker();
+    });
+  </script>
 </head>
 <body>
   <h2>Записаться</h2>
@@ -21,7 +27,7 @@
   </div>
   <div class="form-group">
     <label >Когда вас ждать</label>
-    <input type="text" name="datetime" class="form-control" placeholder="Введите время" value="<%= @datetime %>">
+    <input id="datetimepicker" type="text" name="datetime" class="form-control" placeholder="Введите время" value="<%= @datetime %>">
 
   </div>
 <div class="form-group">
@@ -52,10 +58,6 @@
 <br>
 <button type="submit" class="btn btn-primary">Нажми меня</button>
 </form>
-<script type="text/javascript">
-  $(function () {
-      $('#color').simplecolorpicker();
-  });
-</script>
+
 </body>
 </html>
