@@ -22,6 +22,7 @@ end
 get '/contacts' do
 	erb :contacts
 end
+
 post '/visit'do
 	@name = params[:username]
 	@phone = params[:phone]
@@ -42,6 +43,12 @@ post '/visit'do
 		erb "Name: #{@name}, phone number: #{@phone}, your date and time #{@datetime}, your master: #{@barber} color: #{@color}"
 
 end
+get	'/showusers' do
+
+
+end
 def get_db
-	return  SQLite3::Database.new 'barbershop.db'
+	db = SQLite3::Database.new 'barbershop.db'
+	db.results_as_hash = true
+	return db
 end
