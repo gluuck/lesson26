@@ -4,6 +4,12 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require "sqlite3"
+def get_db
+	db = SQLite3::Database.new 'barbershop.db'
+	db.results_as_hash = true
+	return db
+end
+
 configure do
 	db = get_db
 	db.execute 'CREATE TABLE if not exists "Users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "name" text, "phone" text ,"datestamp" text,"barber" text,"color" text);'
@@ -35,7 +41,7 @@ post '/visit'do
 			return erb :visit
 	end
 
-		db=get_db
+	  db=get_db
 	  db.execute ('insert into Users (name,phone,datestamp,barber,color) values (?,?,?,?,?)'),
 	  [@name , @phone,@datetime,@barber,@color]
 
@@ -43,12 +49,8 @@ post '/visit'do
 		erb "Name: #{@name}, phone number: #{@phone}, your date and time #{@datetime}, your master: #{@barber} color: #{@color}"
 
 end
-get	'/showusers' do
-
-
-end
-def get_db
-	db = SQLite3::Database.new 'barbershop.db'
-	db.results_as_hash = true
-	return db
+get '/showusers' do
+		db = get_db
+		@results = db.execute 'select * from Users order by id desc'
+		erb :showusers
 end
